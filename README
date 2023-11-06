@@ -1,0 +1,10 @@
+A função deste repositório é configurar a placa ESP32 com arduino para que realize as seguintes tarefas:
+- Através de sensores, medir a umidade das plantas;
+- Bombear água automaticamente quando o indicador de umidade estiver baixo;
+- Hospedar um site onde é possivel monitorar a umidade, além de acionar as bombas de água manualmente;
+
+Os materiais utilizados para configurar esta placa foram:
+https://www.ic.unicamp.br/~ducatte/mc102/aula03.pdf
+https://docs.wokwi.com/pt-BR/guides/esp32
+https://web.fe.up.pt/~ee96100/projecto/Tabela%20ascii.htm
+http://www.bosontreinamentos.com.br/programacao-em-linguagem-c/arrays-em-c-declaracao-inicializacao-e-atribuicao-de-valores/
