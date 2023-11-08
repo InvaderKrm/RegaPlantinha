@@ -30,6 +30,7 @@ const int ledPin[N_SENSORES] = {5,4,2,15};
 int tempo[N_SENSORES];
 int espera[N_SENSORES];
 int humidade[N_SENSORES];
+String plantas[N_SENSORES] = {"Alface", "Cebolinha", "Morango", "Tempero Verde"};
 
 void leitor() {
   // Lê o valor do pino analógico
@@ -132,19 +133,23 @@ void minhaPagina(){
 						client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
 						client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
 						client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
-						client.println(".button2 {background-color: #555555;}</style></head>");
+						client.println(".button1 {background-color: #005555;}");
+						client.println(".button2 {background-color: #550055;}");
+						client.println(".button3 {background-color: #555500;}");
+						client.println(".button4 {background-color: #500500;}");
+						client.println("</style></head>");
 						
 						// Web Page Heading
 						client.println("<body><h1>Regador de Plantinhas</h1>");
 						
 						// Display current state, and ON/OFF buttons for i
 						for(int i=0;i<N_SENSORES;i++){
-							
-							client.println("<p>Plantinha "+String(i+1)+" est&aacute; com "+String(humidade[i])+"% de humidade</p>");
-							client.println("<p><a href=\"/"+String(i+1)+"/on\"><button class=\"button\">Regar</button></a></p>");
+							client.println("<p>"+plantas[i]+" est&aacute; com "+String(humidade[i])+"% de umidade</p>");
+							client.println("<p><a href=\"/"+String(i+1)+"/on\"><button class=\"button button"+String(i+1) +"\">Regar</button></a></p>");
 						}
 						client.println("</body></html>");
-						
+
+
 						// The HTTP response ends with another blank line
 						client.println();
 						// Break out of the while loop
