@@ -112,7 +112,8 @@ void minhaPagina(){
 					if (currentLine.length() == 0) {
 						// HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
 						// and a content-type so the client knows what's coming, then a blank line:
-						client.println("HTTP/1.1 200 OK");
+						/*
+            client.println("HTTP/1.1 200 OK");
 						client.println("Content-type:text/html");
 						client.println("Connection: close");
 						client.println();
@@ -131,7 +132,7 @@ void minhaPagina(){
 						// CSS to style the on/off buttons 
 						// Feel free to change the background-color and font-size attributes to fit your preferences
 						client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
-						client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
+						client.println(".button { background-color: #4CAF50; border-radius: 12px; color: white; padding: 16px 40px;");
 						client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
 						client.println(".button1 {background-color: #005555;}");
 						client.println(".button2 {background-color: #550055;}");
@@ -144,8 +145,47 @@ void minhaPagina(){
 						
 						// Display current state, and ON/OFF buttons for i
 						for(int i=0;i<N_SENSORES;i++){
-							client.println("<p>"+plantas[i]+" est&aacute; com "+String(humidade[i])+"% de umidade</p>");
+							client.println("<p><b>"+plantas[i]+"</b> est&aacute; com "+String(humidade[i])+"% de umidade</p>");
 							client.println("<p><a href=\"/"+String(i+1)+"/on\"><button class=\"button button"+String(i+1) +"\">Regar</button></a></p>");
+						}
+						client.println("</body></html>");
+            */
+            client.println("HTTP/1.1 200 OK");
+						client.println("Content-type:text/html");
+						client.println("Connection: close");
+						client.println();
+						
+						// turns the GPIOs on and off
+						for(int i=0;i<N_SENSORES;i++){
+							if (header.indexOf("GET /"+String(i+1)+"/on") >= 0)				tempo[i]=TEMPO_DISPARO;
+							else if (header.indexOf("GET /"+String(i+1)+"/off") >= 0)	tempo[i]=0;
+						}
+						
+						
+						// Display the HTML web page
+						client.println("<!DOCTYPE html><html>");
+						client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+						client.println("<link rel=\"icon\" href=\"data:,\">");
+						// CSS to style the on/off buttons 
+						// Feel free to change the background-color and font-size attributes to fit your preferences
+						client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto;}");
+						client.println("div {background-color: rgb(77, 163, 106); width: 200px; height: 340px; padding: 25px; border-radius: 12px;}");
+            client.println("button {background-color: rgb(141, 206, 148); border-radius: 12px; color: white; padding: 9px 87px; font-size: 25px; cursor: pointer;");
+            client.println("p {font-family: Helvetica; font-size: 25px; margin-top: 1px; margin-bottom: 1px; color: rgb(255, 255, 255); margin-left: 12px;}");
+            client.println("img {width: 196px; border-radius: 5px;}");
+            client.println("h3 {font-family: Helvetica; margin-bottom: 2px; margin-top: -4%; color: rgb(255, 255, 255); margin-left: 29px; font-size: 30px;}")
+						client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
+						client.println("</style></head>");
+						
+						// Web Page Heading
+						client.println("<body><h1>Regador de Plantinhas</h1>");
+						
+						// Display current state, and ON/OFF buttons for i
+						for(int i=0;i<N_SENSORES;i++){
+              client.println("<h3>"+plantas[i]+"</h3>");
+              client.println("<div class="img"></div>");
+              client.println("<p>"+String(humidade[i])+"% de umidade</p>");
+							client.println("<p><a href=\"/"+String(i+1)+"/on\"><button class=\"button button"+String(i+1) +"\">&#9654;</button></a></p>");
 						}
 						client.println("</body></html>");
 
