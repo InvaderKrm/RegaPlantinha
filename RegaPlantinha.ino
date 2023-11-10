@@ -3,8 +3,8 @@
 #include <ESPmDNS.h>
 
 // Replace with your network credentials
-const char* ssid = "kramm2@148";
-const char* password = "5134992001";
+const char* ssid = "SENAC VISITANTES";
+const char* password = "trijuntos";
 
 // Set web server port number to 80
 WiFiServer server(80);
