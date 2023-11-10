@@ -20,7 +20,7 @@ const long timeoutTime = 2000;
 
 
 #define N_SENSORES 4
-#define TEMPO_ESPERA 5000
+#define TEMPO_ESPERA 60000
 #define TEMPO_DISPARO 1000
 // Definição do pino analógico
 const int analogPin[N_SENSORES] = {34,35,32,33};
@@ -41,8 +41,8 @@ void leitor() {
       float temp = analogRead(analogPin[i]);
 			temp = temp*100/4096;
 			//converte em percentual
-			humidade[i] = int(temp);
-      if (humidade[i] > level[i]) tempo[i]=TEMPO_DISPARO;
+			humidade[i] = 100 - int(temp);
+      if (humidade[i] < level[i]) tempo[i]=TEMPO_DISPARO;
     }
   }
 }
